@@ -14,7 +14,7 @@ function App() {
 
       </div>
       <div className="content">
-
+        
         <TemperatureMap/>
       </div>
     </div>

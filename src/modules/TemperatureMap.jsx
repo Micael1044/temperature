@@ -60,17 +60,22 @@ const TemperatureMap = () => {
 
     function onClickMarker(i, d) {
 
-        const tempIndex = closestIndexTo(new Date(), d.minutely_15.time)
         setCityName("Ciudad " + i)
-        setTemperature(d.minutely_15.temperature_2m[tempIndex - 1])
+        setTemperature(getLastTemp(d))
 
-        if (d.minutely_15.temperature_2m[tempIndex - 1] > 25) {
-            setIcon(redIcon)
-        }
-        else {
-            setIcon(greenIcon)
-        }
+     
     }
+
+      function getLastTemp(d) {
+        const tempIndex = closestIndexTo(new Date(), d.minutely_15.time);
+        return  d.minutely_15.temperature_2m[tempIndex - 1];
+     
+    }
+    function getIcon(d) {
+        return  getLastTemp(d) > 25 ? redIcon : greenIcon;
+    }
+
+  
 
     return (
         <> {loading ? null : <MapContainer center={[DEFAULT_LAT, DEFAULT_LON]} zoom={13} className='map'  >
@@ -80,7 +85,7 @@ const TemperatureMap = () => {
             />
             {data.map((d, index) => (
                 <Marker key={nanoid()} position={[d.latitude, d.longitude]}
-                    icon={icon}
+                    icon={getIcon(d)}
                     eventHandlers={{
                         click: () => {
                             onClickMarker(index + 1, d)
