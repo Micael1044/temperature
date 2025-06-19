@@ -1,0 +1,2 @@
+export const API_URL = "https://api.open-meteo.com/v1/forecast?latitude=40.4168,41.3784,39.4699,43.263,41.6488&longitude=-3.7038,2.1925,-0.3763,-2.934,-0.8891&minutely_15=temperature_2m&forecast_days=14";
+export const FIFTEEN_MINUTES = 15 * 60 * 1000;
